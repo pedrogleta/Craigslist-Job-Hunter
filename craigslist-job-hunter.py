@@ -1,24 +1,21 @@
 from selenium import webdriver
 
 print ("Hello! Welcome to the Craigslist Job Hunter.")
-driver = input("Do you use Firefox or Chrome?: ")
+driver = input("Do you use Firefox or Chrome?: ").lower()
 
-if driver == 'Chrome':
-    Driver = webdriver.Chrome()
-elif driver == 'chrome':                                                     
-    Driver = webdriver.Chrome()
-elif driver == 'Firefox':
-    Driver = webdriver.Firefox()
-elif driver == 'firefox':
-    Driver = webdriver.Firefox()
-else:
+while True:
+    if driver == 'chrome':
+        Driver = webdriver.Chrome()
+        break
+    elif driver == 'firefox':
+        Driver = webdriver.Firefox()
+        break
     driver = input("I'm sorry, I didn't understand, do you use Firefox or Chrome?: ")
 
 #Queries
 queries = ['code', 'programmer']
 
 #Login
-
 email = input("Enter your e-mail: ")
 password = input("Enter your password: ")
 
