@@ -1,7 +1,7 @@
 from selenium import webdriver
 
 print ("Hello! Welcome to the Craigslist Job Hunter.")
-driver = input("Do you use Firefox or Chrome?: ").lower()
+driver = input("Do you use Firefox or Chrome? ").lower()
 
 while True:
     if driver == 'chrome':
@@ -10,10 +10,14 @@ while True:
     elif driver == 'firefox':
         Driver = webdriver.Firefox()
         break
-    driver = input("I'm sorry, I didn't understand, do you use Firefox or Chrome?: ")
+    driver = input("I'm sorry, I didn't understand. Do you use Firefox or Chrome? ")
 
 #Queries
-queries = ['code', 'programmer']
+queries = []
+query = False
+while query != '':
+    query = input('Enter a job query to the search list or nothing to continue: ')
+    queries.append(query)
 
 #Login
 email = input("Enter your e-mail: ")
@@ -37,9 +41,10 @@ for a in usDiv.find_elements_by_css_selector('a'):
     href = a.get_attribute('href')
     state = href.split('.')[0]
     for query in queries:
-        realHref = state + '.craigslist.org/search/crg?query=' + query + '&is_paid=all&lang=en&cc=gb'
+        realHref = state + '.craigslist.org/search/ggg?query=' + query + '&is_paid=all&lang=en&cc=gb'
         usLinks.append(realHref)
 
+#Save Searches
 for href in usLinks:
     Driver.get(href)
     a = Driver.find_element_by_css_selector('a.saveme')
