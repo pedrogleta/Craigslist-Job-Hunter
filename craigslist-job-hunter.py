@@ -1,23 +1,39 @@
 from selenium import webdriver
 
-chrome = webdriver.Chrome()
+print ("Hello! Welcome to the Craigslist Job Hunter.")
+driver = input("Do you use Firefox or Chrome?: ")
+
+if driver == 'Chrome':
+    Driver = webdriver.Chrome()
+elif driver == 'chrome':                                                     
+    Driver = webdriver.Chrome()
+elif driver == 'Firefox':
+    Driver = webdriver.Firefox()
+elif driver == 'firefox':
+    Driver = webdriver.Firefox()
+else:
+    driver = input("I'm sorry, I didn't understand, do you use Firefox or Chrome?: ")
 
 #Queries
-queries = ['illustration', 'illustrator']
+queries = ['code', 'programmer']
 
 #Login
-payload = {'#inputEmailHandle': '', '#inputPassword': ''}
-chrome.get('https://accounts.craigslist.org/login')
+
+email = input("Enter your e-mail: ")
+password = input("Enter your password: ")
+
+payload = {'#inputEmailHandle': email, '#inputPassword': password}
+Driver.get('https://accounts.craigslist.org/login')
 
 for el in payload:
-    chrome.find_element_by_css_selector(el).send_keys(payload[el])
+    Driver.find_element_by_css_selector(el).send_keys(payload[el])
 
-chrome.find_element_by_css_selector('#login').click()
+Driver.find_element_by_css_selector('#login').click()
 
 #Scrape
-chrome.get('https://www.craigslist.org/about/sites?lang=en&cc=gb#US')
+Driver.get('https://www.craigslist.org/about/sites?lang=en&cc=gb#US')
 
-usDiv = chrome.find_elements_by_css_selector('h1 + div')[0]
+usDiv = Driver.find_elements_by_css_selector('h1 + div')[0]
 
 usLinks = []
 for a in usDiv.find_elements_by_css_selector('a'):
@@ -28,7 +44,7 @@ for a in usDiv.find_elements_by_css_selector('a'):
         usLinks.append(realHref)
 
 for href in usLinks:
-    chrome.get(href)
-    a = chrome.find_element_by_css_selector('a.saveme')
-    chrome.get(a.get_attribute('href'))
-    chrome.find_element_by_css_selector('button').click()
+    Driver.get(href)
+    a = Driver.find_element_by_css_selector('a.saveme')
+    Driver.get(a.get_attribute('href'))
+    Driver.find_element_by_css_selector('button').click()
